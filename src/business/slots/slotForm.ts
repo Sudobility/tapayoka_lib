@@ -6,7 +6,9 @@
 
 import type {
   PricingTier,
+  SlotAction,
   VendorModelPricing,
+  VendorModelPayment,
   VendorModelSlotPricing,
   VendorInstallationSlotCreateRequest,
 } from '@sudobility/tapayoka_types';
@@ -14,6 +16,7 @@ import {
   makeDefaultVariableTier,
   makeDefaultFixedTier,
 } from '../pricing/tierFactories';
+import { canSaveAction } from '../pricing/action';
 
 /** Auto-select a tier id when the offering has exactly one tier, else null. */
 export function autoSelectTierId(tiers: PricingTier[]): string | null {
@@ -36,9 +39,26 @@ export interface SlotFormState {
   tiers: PricingTier[];
   selectedTierId: string | null;
   customPricingTier: PricingTier | null;
+  /**
+   * Per-slot relay action (multi-slot models). Defined regardless of Tiered vs
+   * Unique pricing. Null for single-slot models, which keep the action on the tier.
+   */
+  action?: SlotAction | null;
+  /** Model payment timing, so a two-phase (atEnd) action requires an end phase. */
+  payment?: VendorModelPayment | null;
 }
 
-/** Whether the slot form has enough to save (per Tiered/Unique rules). */
+/**
+ * Whether this slot collects a per-slot action: multi-slot models (identified
+ * by having a slotPricing mode) define pins per slot; single-slot models don't.
+ */
+export function slotUsesAction(
+  slotPricing?: VendorModelSlotPricing | null
+): boolean {
+  return slotPricing === 'Tiered' || slotPricing === 'Unique';
+}
+
+/** Whether the slot form has enough to save (pricing + per-slot action rules). */
 export function canSaveSlot(state: SlotFormState): boolean {
   if (!state.label.trim()) return false;
   if (
@@ -49,6 +69,12 @@ export function canSaveSlot(state: SlotFormState): boolean {
     return false;
   }
   if (state.slotPricing === 'Unique' && !state.customPricingTier) return false;
+  if (
+    slotUsesAction(state.slotPricing) &&
+    !canSaveAction(state.action, state.payment)
+  ) {
+    return false;
+  }
   return true;
 }
 
@@ -56,7 +82,7 @@ export function canSaveSlot(state: SlotFormState): boolean {
 export function buildSlotRequest(
   state: Pick<
     SlotFormState,
-    'label' | 'slotPricing' | 'selectedTierId' | 'customPricingTier'
+    'label' | 'slotPricing' | 'selectedTierId' | 'customPricingTier' | 'action'
   >
 ): VendorInstallationSlotCreateRequest {
   const data: VendorInstallationSlotCreateRequest = {
@@ -67,6 +93,9 @@ export function buildSlotRequest(
   }
   if (state.slotPricing === 'Unique' && state.customPricingTier) {
     data.pricingTier = state.customPricingTier;
+  }
+  if (slotUsesAction(state.slotPricing) && state.action) {
+    data.action = state.action;
   }
   return data;
 }

@@ -142,6 +142,26 @@ export function actionSupportsInterruption(
 }
 
 /**
+ * Pricing is driven by the action: a `timed` action is metered by time, so it
+ * is always `variable`. A `sequence` action may be priced `fixed` or `variable`
+ * (the vendor's choice is passed through).
+ */
+export function pricingForAction(
+  action: VendorModelAction | null | undefined,
+  pricing: VendorModelPricing | null | undefined
+): VendorModelPricing | undefined {
+  if (action === 'timed') return 'variable';
+  return pricing || undefined;
+}
+
+/** Whether the pricing choice is locked by the action (timed ⇒ variable). */
+export function pricingLockedByAction(
+  action: VendorModelAction | null | undefined
+): boolean {
+  return action === 'timed';
+}
+
+/**
  * Normalize raw model config field values into a request payload, applying the
  * domain gating rules: slot pricing only applies to multi-slot models, and
  * interruption only applies to timed actions.
@@ -150,7 +170,8 @@ export function buildVendorModelConfig(
   input: VendorModelConfigInput
 ): VendorModelConfig {
   return {
-    pricing: input.pricing || undefined,
+    // Pricing is derived from the action: timed ⇒ variable (see pricingForAction).
+    pricing: pricingForAction(input.action, input.pricing),
     slot: input.slot || undefined,
     slotPricing: slotSupportsSlotPricing(input.slot)
       ? input.slotPricing || undefined
