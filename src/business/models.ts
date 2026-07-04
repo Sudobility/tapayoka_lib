@@ -21,8 +21,10 @@ export const MODEL_TYPES: VendorModelType[] = [
   'Washer',
   'Dryer',
   'Parking',
+  'Charging',
   'Locker',
   'Vending',
+  'Tourist Binocular',
 ];
 
 // Config enum value sets (UI attaches labels/i18n; these are the domain values).
@@ -82,6 +84,15 @@ export const MODEL_TYPE_DEFAULTS: Record<
     interruption: 'continue',
     payment: 'atStart',
   },
+  // EV charger — same configuration as parking.
+  Charging: {
+    pricing: 'variable',
+    slot: 'multi1D',
+    slotPricing: 'Tiered',
+    action: 'timed',
+    interruption: 'continue',
+    payment: 'atStart',
+  },
   Locker: {
     pricing: 'variable',
     slot: 'multi1D',
@@ -96,6 +107,15 @@ export const MODEL_TYPE_DEFAULTS: Record<
     slotPricing: 'Tiered',
     action: 'sequence',
     interruption: null,
+    payment: 'atStart',
+  },
+  // Tourist viewer — a fixed-price, timed viewing session on a single unit.
+  'Tourist Binocular': {
+    pricing: 'fixed',
+    slot: 'single',
+    slotPricing: null,
+    action: 'timed',
+    interruption: 'stop',
     payment: 'atStart',
   },
 };
@@ -142,36 +162,16 @@ export function actionSupportsInterruption(
 }
 
 /**
- * Pricing is driven by the action: a `timed` action is metered by time, so it
- * is always `variable`. A `sequence` action may be priced `fixed` or `variable`
- * (the vendor's choice is passed through).
- */
-export function pricingForAction(
-  action: VendorModelAction | null | undefined,
-  pricing: VendorModelPricing | null | undefined
-): VendorModelPricing | undefined {
-  if (action === 'timed') return 'variable';
-  return pricing || undefined;
-}
-
-/** Whether the pricing choice is locked by the action (timed ⇒ variable). */
-export function pricingLockedByAction(
-  action: VendorModelAction | null | undefined
-): boolean {
-  return action === 'timed';
-}
-
-/**
  * Normalize raw model config field values into a request payload, applying the
  * domain gating rules: slot pricing only applies to multi-slot models, and
- * interruption only applies to timed actions.
+ * interruption only applies to timed actions. Pricing is independent of the
+ * action — any action can be priced `fixed` or `variable`.
  */
 export function buildVendorModelConfig(
   input: VendorModelConfigInput
 ): VendorModelConfig {
   return {
-    // Pricing is derived from the action: timed ⇒ variable (see pricingForAction).
-    pricing: pricingForAction(input.action, input.pricing),
+    pricing: input.pricing || undefined,
     slot: input.slot || undefined,
     slotPricing: slotSupportsSlotPricing(input.slot)
       ? input.slotPricing || undefined
