@@ -38,13 +38,7 @@ export function formatOrderTimestamp(
  * so both apps can pass the result straight to `<Badge variant=... />`.
  */
 export type OrderStatusBadgeVariant =
-  | 'default'
-  | 'primary'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'info'
-  | 'purple';
+  'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'purple';
 
 const ORDER_STATUS_BADGE: Record<OrderStatus, OrderStatusBadgeVariant> = {
   CREATED: 'default', // awaiting payment — neutral
