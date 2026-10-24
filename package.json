@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/tapayoka_lib",
-  "version": "0.0.68",
+  "version": "0.0.69",
   "description": "Business logic library with Zustand stores for Tapayoka",
   "type": "module",
   "main": "dist/index.js",
@@ -34,8 +34,8 @@
   "author": "Sudobility",
   "license": "BUSL-1.1",
   "peerDependencies": {
-    "@sudobility/tapayoka_client": "^0.0.65",
-    "@sudobility/tapayoka_types": "^0.0.59",
+    "@sudobility/tapayoka_client": "^0.0.66",
+    "@sudobility/tapayoka_types": "^0.0.60",
     "@sudobility/types": "^1.9.76",
     "@tanstack/react-query": ">=5.0.0",
     "react": ">=18.0.0",
@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "@eslint/js": "~9.39.5",
-    "@sudobility/tapayoka_client": "^0.0.65",
-    "@sudobility/tapayoka_types": "^0.0.59",
+    "@sudobility/tapayoka_client": "^0.0.66",
+    "@sudobility/tapayoka_types": "^0.0.60",
     "@sudobility/types": "^1.9.76",
     "@tanstack/react-query": "~5.104.5",
     "@types/react": "~19.3.0",
