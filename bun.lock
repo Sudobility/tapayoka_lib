@@ -6,7 +6,7 @@
       "name": "@sudobility/tapayoka_lib",
       "devDependencies": {
         "@eslint/js": "~10.0.1",
-        "@sudobility/tapayoka_client": "^0.0.67",
+        "@sudobility/tapayoka_client": "^0.0.68",
         "@sudobility/tapayoka_types": "^0.0.60",
         "@sudobility/types": "^1.9.76",
         "@tanstack/react-query": "~5.104.5",
@@ -23,7 +23,7 @@
         "zustand": "~5.0.16",
       },
       "peerDependencies": {
-        "@sudobility/tapayoka_client": "^0.0.67",
+        "@sudobility/tapayoka_client": "^0.0.68",
         "@sudobility/tapayoka_types": "^0.0.60",
         "@sudobility/types": "^1.9.76",
         "@tanstack/react-query": ">=5.0.0",
@@ -109,7 +109,7 @@
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
-    "@sudobility/tapayoka_client": ["@sudobility/tapayoka_client@0.0.67", "https://npm.pkg.github.com/download/@sudobility/tapayoka_client/0.0.67/0311d7fb97a6abdc6344f6e38cce1d0dcf4605e8", { "peerDependencies": { "@sudobility/tapayoka_types": "^0.0.60", "@sudobility/types": "^1.9.76", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-5Gj0F03XnXRonNZ9YbMFuA5uskasaR1eWxvgbzpEIc/ki4SQem59jx4jbqGt3WPCQs7iZFc40PaKNMS60S3oLQ=="],
+    "@sudobility/tapayoka_client": ["@sudobility/tapayoka_client@0.0.68", "https://npm.pkg.github.com/download/@sudobility/tapayoka_client/0.0.68/b7b1f43d6b0ea134ed74991fb231c798f2b33d6b", { "peerDependencies": { "@sudobility/tapayoka_types": "^0.0.60", "@sudobility/types": "^1.9.76", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-3Ttqj2TlRZ6WLGhQe+CYBpuV8PiicoEhtFc6Rt2ujcfHT5ezkJQDBxWtcl0e2X2Gx0H8twg7k7kQOHK+4daECw=="],
 
     "@sudobility/tapayoka_types": ["@sudobility/tapayoka_types@0.0.60", "https://npm.pkg.github.com/download/@sudobility/tapayoka_types/0.0.60/7bc056a7ac5d60ccc0e4e80bb3917deb3726b075", { "peerDependencies": { "@sudobility/types": "^1.9.76" } }, "sha512-ka9CvFg9YXZ+Dj9TQpoWCcZVeHA5CPkwKjD21SsD8WhXF2Znho9epP42LvdO3eMMMqrnMFeWvhvdFTyURRnNvQ=="],
 
