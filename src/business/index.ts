@@ -8,7 +8,7 @@ export * from './schedule';
 export * from './offerings';
 export * from './orders';
 export * from './cards';
-export * from './installations';
+export * from './devices';
 export * from './deeplink';
 export * from './locations';
 export * from './currency';

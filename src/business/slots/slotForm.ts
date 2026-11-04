@@ -10,7 +10,7 @@ import type {
   VendorModelPricing,
   VendorModelPayment,
   VendorModelSlotPricing,
-  VendorInstallationSlotCreateRequest,
+  VendorDeviceSlotCreateRequest,
 } from '@sudobility/tapayoka_types';
 import {
   makeDefaultVariableTier,
@@ -84,8 +84,8 @@ export function buildSlotRequest(
     SlotFormState,
     'label' | 'slotPricing' | 'selectedTierId' | 'customPricingTier' | 'action'
   >
-): VendorInstallationSlotCreateRequest {
-  const data: VendorInstallationSlotCreateRequest = {
+): VendorDeviceSlotCreateRequest {
+  const data: VendorDeviceSlotCreateRequest = {
     label: state.label.trim(),
   };
   if (state.slotPricing === 'Tiered' && state.selectedTierId) {

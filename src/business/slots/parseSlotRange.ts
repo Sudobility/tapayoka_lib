@@ -1,7 +1,7 @@
 /**
  * @fileoverview Slot range parsing.
  * @description Pure helper that expands a range string into discrete slot
- * labels, used when generating a grid of installation slots. Shared business
+ * labels, used when generating a grid of device slots. Shared business
  * logic so both vendor apps parse ranges identically.
  */
 

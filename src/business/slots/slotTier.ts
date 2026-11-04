@@ -2,10 +2,7 @@
  * @fileoverview Slot ↔ pricing-tier resolution.
  */
 
-import type {
-  PricingTier,
-  VendorInstallationSlot,
-} from '@sudobility/tapayoka_types';
+import type { PricingTier, VendorDeviceSlot } from '@sudobility/tapayoka_types';
 
 /**
  * Resolve a slot's effective pricing-tier name for display: prefer the slot's
@@ -13,7 +10,7 @@ import type {
  * id (Tiered mode). Returns undefined when the slot has no tier.
  */
 export function resolveSlotTierName(
-  slot: Pick<VendorInstallationSlot, 'pricingTier' | 'pricingTierId'>,
+  slot: Pick<VendorDeviceSlot, 'pricingTier' | 'pricingTierId'>,
   offeringTiers: PricingTier[]
 ): string | undefined {
   return (

@@ -1,43 +1,43 @@
 import { useCallback, useEffect } from 'react';
 import type { NetworkClient } from '@sudobility/types';
 import type {
-  VendorInstallationSlotCreateRequest,
-  VendorInstallationSlotUpdateRequest,
-  VendorInstallationSlotBulkCreateRequest,
+  VendorDeviceSlotCreateRequest,
+  VendorDeviceSlotUpdateRequest,
+  VendorDeviceSlotBulkCreateRequest,
 } from '@sudobility/tapayoka_types';
-import { useVendorInstallationSlots } from '@sudobility/tapayoka_client';
-import { useVendorInstallationSlotsStore } from '../stores';
+import { useVendorDeviceSlots } from '@sudobility/tapayoka_client';
+import { useVendorDeviceSlotsStore } from '../stores';
 import type { FirebaseIdToken } from '@sudobility/tapayoka_client';
 
-export const useVendorInstallationSlotsManager = (
+export const useVendorDeviceSlotsManager = (
   networkClient: NetworkClient,
   baseUrl: string,
   entitySlug: string | null,
   token: FirebaseIdToken | null,
-  installationWalletAddress: string | null
+  deviceWalletAddress: string | null
 ) => {
-  const store = useVendorInstallationSlotsStore();
-  const hook = useVendorInstallationSlots(
+  const store = useVendorDeviceSlotsStore();
+  const hook = useVendorDeviceSlots(
     networkClient,
     baseUrl,
     entitySlug,
     token,
-    installationWalletAddress,
-    { enabled: !!token && !!installationWalletAddress }
+    deviceWalletAddress,
+    { enabled: !!token && !!deviceWalletAddress }
   );
 
   useEffect(() => {
     store.reset();
-  }, [entitySlug, installationWalletAddress]);
+  }, [entitySlug, deviceWalletAddress]);
 
   useEffect(() => {
-    if (hook.slots.length > 0 && installationWalletAddress) {
-      store.setSlots(hook.slots, installationWalletAddress);
+    if (hook.slots.length > 0 && deviceWalletAddress) {
+      store.setSlots(hook.slots, deviceWalletAddress);
     }
-  }, [hook.slots, installationWalletAddress]);
+  }, [hook.slots, deviceWalletAddress]);
 
   const addSlot = useCallback(
-    async (data: VendorInstallationSlotCreateRequest) => {
+    async (data: VendorDeviceSlotCreateRequest) => {
       const slot = await hook.createSlot(data);
       if (slot) store.addSlot(slot);
       return slot;
@@ -46,19 +46,19 @@ export const useVendorInstallationSlotsManager = (
   );
 
   const bulkCreateSlots = useCallback(
-    async (data: VendorInstallationSlotBulkCreateRequest) => {
+    async (data: VendorDeviceSlotBulkCreateRequest) => {
       const slots = await hook.bulkCreateSlots(data);
       if (slots) {
         store.clearSlots();
-        store.setSlots(slots, installationWalletAddress!);
+        store.setSlots(slots, deviceWalletAddress!);
       }
       return slots;
     },
-    [hook.bulkCreateSlots, installationWalletAddress]
+    [hook.bulkCreateSlots, deviceWalletAddress]
   );
 
   const updateSlot = useCallback(
-    async (slotId: string, data: VendorInstallationSlotUpdateRequest) => {
+    async (slotId: string, data: VendorDeviceSlotUpdateRequest) => {
       const slot = await hook.updateSlot(slotId, data);
       if (slot) store.updateSlot(slotId, slot);
       return slot;

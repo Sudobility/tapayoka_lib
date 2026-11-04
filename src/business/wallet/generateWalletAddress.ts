@@ -1,7 +1,7 @@
 /**
  * @fileoverview Device wallet-address generation.
  * @description Pure helper that produces a random 20-byte hex wallet address
- * (`0x...`) for a device installation. Shared so both vendor apps generate
+ * (`0x...`) for a device device. Shared so both vendor apps generate
  * addresses identically instead of duplicating the logic.
  */
 
