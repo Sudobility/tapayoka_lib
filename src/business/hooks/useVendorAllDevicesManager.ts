@@ -4,10 +4,11 @@ import type { FirebaseIdToken } from '@sudobility/tapayoka_client';
 
 /**
  * Org-wide device list manager: every device across the entity, enriched with
- * location/model/offering names for a flat list. Read + delete only — devices
- * are created through the offering-scoped add flow (the add-device wizard),
- * then this list is refreshed. A thin pass-through over the client hook; no
- * store, since the Devices screen owns the only view of this data.
+ * location/model/offering names for a flat list. Read + update (label) +
+ * delete — devices are created through the offering-scoped add flow (the
+ * add-device wizard), then this list is refreshed. A thin pass-through over the
+ * client hook; no store, since the Devices screen owns the only view of this
+ * data.
  */
 export const useVendorAllDevicesManager = (
   networkClient: NetworkClient,
@@ -24,6 +25,7 @@ export const useVendorAllDevicesManager = (
     isLoading: hook.isLoading,
     error: hook.error,
     refresh: hook.refresh,
+    updateDevice: hook.updateDevice,
     deleteDevice: hook.deleteDevice,
     clearError: hook.clearError,
   };
