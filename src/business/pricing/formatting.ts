@@ -15,7 +15,12 @@ import type { PricingTier } from '@sudobility/tapayoka_types';
  */
 export function formatTierSummary(tier: PricingTier): string {
   if (tier.type === 'timed') {
-    const unit = tier.startDurationUnit === 'hours' ? 'hr' : 'min';
+    const unit =
+      tier.startDurationUnit === 'hours'
+        ? 'hr'
+        : tier.startDurationUnit === 'seconds'
+          ? 'sec'
+          : 'min';
     return `${tier.startPrice} ${tier.currencyCode} / ${tier.startDuration}${unit}`;
   }
   return `${tier.price} ${tier.currencyCode}`;
