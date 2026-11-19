@@ -6,8 +6,8 @@
       "name": "@sudobility/tapayoka_lib",
       "devDependencies": {
         "@eslint/js": "~10.0.1",
-        "@sudobility/tapayoka_client": "^0.0.77",
-        "@sudobility/tapayoka_types": "^0.0.68",
+        "@sudobility/tapayoka_client": "^0.0.79",
+        "@sudobility/tapayoka_types": "^0.0.70",
         "@sudobility/types": "^1.11.2",
         "@tanstack/react-query": "~5.104.5",
         "@types/react": "~19.3.0",
@@ -23,8 +23,8 @@
         "zustand": "~5.0.16",
       },
       "peerDependencies": {
-        "@sudobility/tapayoka_client": "^0.0.77",
-        "@sudobility/tapayoka_types": "^0.0.68",
+        "@sudobility/tapayoka_client": "^0.0.79",
+        "@sudobility/tapayoka_types": "^0.0.70",
         "@sudobility/types": "^1.11.2",
         "@tanstack/react-query": ">=5.0.0",
         "react": ">=18.0.0",
@@ -109,9 +109,9 @@
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
-    "@sudobility/tapayoka_client": ["@sudobility/tapayoka_client@0.0.77", "https://npm.pkg.github.com/download/@sudobility/tapayoka_client/0.0.77/ea789a9a82866c4b0d63fa8b067fa3ff6b0dbea6", { "peerDependencies": { "@sudobility/tapayoka_types": "^0.0.68", "@sudobility/types": "^1.11.2", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-gDTpa2vFpZn5eX0j2YAV9QNNKXVLiYWxxfFpUL/iyxQIYgqb9wldq+6Q/KbDhCwvpaMu4Qyn98/IPYYwW7RlYA=="],
+    "@sudobility/tapayoka_client": ["@sudobility/tapayoka_client@0.0.79", "https://npm.pkg.github.com/download/@sudobility/tapayoka_client/0.0.79/f8a51123dfbdb07b923ad1257435aacda516fa18", { "peerDependencies": { "@sudobility/tapayoka_types": "^0.0.70", "@sudobility/types": "^1.11.2", "@tanstack/react-query": ">=5.0.0", "react": ">=18.0.0" } }, "sha512-cmzzibaAn1c547gjVtenwgZs/2L31MXufZjL+byM7HYEWERxyQYD2UhVCjn8zdWJXhhYXYRHIIpcbSZ0lvQPCw=="],
 
-    "@sudobility/tapayoka_types": ["@sudobility/tapayoka_types@0.0.68", "https://npm.pkg.github.com/download/@sudobility/tapayoka_types/0.0.68/aa4bcab78077a55e6ebf1edfd1b61e3b2d23df21", { "peerDependencies": { "@sudobility/types": "^1.11.2" } }, "sha512-GJy/Aia/Xquo+rgz0iDynqkq09DKBKU3+gAyCf9wkHhsSHuaHp5B9Qi22hoBuKqrOurUScFJOAhaqMHqv3x0AA=="],
+    "@sudobility/tapayoka_types": ["@sudobility/tapayoka_types@0.0.70", "https://npm.pkg.github.com/download/@sudobility/tapayoka_types/0.0.70/d620f84703c8211c6e9c2fa8050361f22a59d429", { "peerDependencies": { "@sudobility/types": "^1.11.2" } }, "sha512-nf1P2H23KTpqLzkb/IiJR3GPrjBY7G6Q20pKezAmawL/dBlTagEk7tAZRkdnm9Dy+GNkMSSO/OudMW3k/OEiQw=="],
 
     "@sudobility/types": ["@sudobility/types@1.11.2", "https://npm.pkg.github.com/download/@sudobility/types/1.11.2/d6d0b1809eaca31ef737646032cc431111b58a49", {}, "sha512-gg+bPtcOGNETDt9oNdjcn7R22EfFWmRxMOhj0ADwulBJ9tJ4NaMaXkrTtkWF+figSDZqmD9a9kodgOHseq8gsQ=="],
 
