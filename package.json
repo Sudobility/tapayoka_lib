@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/tapayoka_lib",
-  "version": "0.0.82",
+  "version": "0.0.84",
   "description": "Business logic library with Zustand stores for Tapayoka",
   "type": "module",
   "main": "dist/index.js",

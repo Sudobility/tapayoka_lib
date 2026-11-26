@@ -11,6 +11,7 @@ import type {
   VendorModelPayment,
   VendorModelSlotPricing,
   VendorDeviceSlotCreateRequest,
+  VendorDeviceSlotUpdateRequest,
 } from '@sudobility/tapayoka_types';
 import {
   makeDefaultVariableTier,
@@ -58,27 +59,28 @@ export function slotUsesAction(
   return slotPricing === 'Tiered' || slotPricing === 'Unique';
 }
 
-/** Whether the slot form has enough to save (pricing + per-slot action rules). */
+/**
+ * Whether the slot form has enough to save.
+ *
+ * Per-slot pricing and action apply to multi-slot models only (identified by
+ * {@link slotUsesAction}); a single-slot slot is label-only, because its price
+ * and relay action live on the offering tier. A multi-slot slot's price is
+ * EITHER a selected offering tier OR its own custom tier — the editor offers
+ * both and requires one.
+ */
 export function canSaveSlot(state: SlotFormState): boolean {
   if (!state.label.trim()) return false;
-  if (
-    state.slotPricing === 'Tiered' &&
-    state.tiers.length > 0 &&
-    !state.selectedTierId
-  ) {
-    return false;
-  }
-  if (state.slotPricing === 'Unique' && !state.customPricingTier) return false;
-  if (
-    slotUsesAction(state.slotPricing) &&
-    !canSaveAction(state.action, state.payment)
-  ) {
-    return false;
-  }
-  return true;
+  if (!slotUsesAction(state.slotPricing)) return true;
+  const hasPricing = !!state.selectedTierId || !!state.customPricingTier;
+  if (!hasPricing) return false;
+  return canSaveAction(state.action, state.payment);
 }
 
-/** Build the slot create/update request from the form state. */
+/**
+ * Build the slot create request from the form state. A multi-slot slot's price
+ * is a selected offering tier OR its own custom tier (the tier wins if both are
+ * somehow set); single-slot slots carry neither pricing nor action.
+ */
 export function buildSlotRequest(
   state: Pick<
     SlotFormState,
@@ -88,14 +90,30 @@ export function buildSlotRequest(
   const data: VendorDeviceSlotCreateRequest = {
     label: state.label.trim(),
   };
-  if (state.slotPricing === 'Tiered' && state.selectedTierId) {
-    data.pricingTierId = state.selectedTierId;
-  }
-  if (state.slotPricing === 'Unique' && state.customPricingTier) {
-    data.pricingTier = state.customPricingTier;
-  }
-  if (slotUsesAction(state.slotPricing) && state.action) {
-    data.action = state.action;
+  if (slotUsesAction(state.slotPricing)) {
+    if (state.selectedTierId) {
+      data.pricingTierId = state.selectedTierId;
+    } else if (state.customPricingTier) {
+      data.pricingTier = state.customPricingTier;
+    }
+    if (state.action) data.action = state.action;
   }
   return data;
+}
+
+/**
+ * Convert a built create request into an update request, explicitly nulling the
+ * pricing source and action that aren't set. Switching a slot between a shared
+ * tier and a custom price (or clearing them) must clear the other field so no
+ * stale pricing/action lingers.
+ */
+export function slotCreateToUpdate(
+  data: VendorDeviceSlotCreateRequest
+): VendorDeviceSlotUpdateRequest {
+  return {
+    ...data,
+    pricingTierId: data.pricingTierId ?? null,
+    pricingTier: data.pricingTier ?? null,
+    action: data.action ?? null,
+  };
 }
